@@ -1,0 +1,7 @@
+displayName: UserAgent Blocker
+type: middleware
+import: github.com/kucjac/traefik-block-ua
+summary: a middleware that blocks HTTP requests with defined user agent names
+testData:
+  userAgents:
+    - "CustomCrawlerName"

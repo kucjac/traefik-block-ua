@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  golangci:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.17"
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Test
+        run: make test
+
+#  yaegi-test:
+#    name: Yaegi Test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Setup Go
+#        uses: actions/setup-go@v2
+#        with:
+#          go-version: "1.17"
+#      - name: Checkout Repository
+#        uses: actions/checkout@v2
+#      - name: Get Yeagi binary
+#        run: |
+#          go get -u github.com/traefik/yaegi/cmd/yaegi
+#
+#      - name: Test plugin with Yeagi
+#        run: |
+#          yaegi test

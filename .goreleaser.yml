@@ -1,0 +1,26 @@
+project_name: traefik-block-ua
+
+before:
+  hooks:
+    # https://goreleaser.com/customization/build/#go-modules
+    - go mod tidy
+
+builds:
+  - skip: true
+
+release:
+  prerelease: auto
+  extra_files:
+    - glob: ./bom.json
+
+milestones:
+  - name_template: "{{ .Tag }}"
+    close: true
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^Merge '
